@@ -3,7 +3,7 @@ package com.unfbx.chatgpt;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.http.ContentType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.unfbx.chatgpt.entity.weixin.BaiduCompletion;
+import com.unfbx.chatgpt.entity.qwen.QwenCompletionRequest;
 import com.unfbx.chatgpt.exception.BaseException;
 import com.unfbx.chatgpt.exception.CommonError;
 import com.unfbx.chatgpt.interceptor.OpenAILogger;
@@ -24,25 +24,28 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class BaiduAiStreamClient extends BaiduAiClient {
+public class QwenStreamClient extends QwenClient {
 
-    private static final Logger log = LoggerFactory.getLogger(BaiduAiStreamClient.class);
+    private static final Logger log = LoggerFactory.getLogger(QwenStreamClient.class);
     private final OkHttpClient okHttpClient;
 
-    public void streamChatCompletion(BaiduCompletion baiduCompletion, EventSourceListener eventSourceListener) {
+    public void streamChatCompletion(QwenCompletionRequest qwenCompletionRequest, EventSourceListener eventSourceListener) {
         if (Objects.isNull(eventSourceListener)) {
             log.error("参数异常：EventSourceListener不能为空，可以参考：com.unfbx.chatgpt.sse.ConsoleEventSourceListener");
             throw new BaseException(CommonError.PARAM_ERROR);
         } else {
-            if (baiduCompletion.getStream() == null) {
-                baiduCompletion.setStream(true);
+            if (qwenCompletionRequest.getParameters().getStream() == null) {
+                qwenCompletionRequest.getParameters().setStream(true);
+                qwenCompletionRequest.getParameters().setIncrementalOutput(true);
+
             }
 
             try {
                 EventSource.Factory factory = EventSources.createFactory(this.okHttpClient);
                 ObjectMapper mapper = new ObjectMapper();
-                String requestBody = mapper.writeValueAsString(baiduCompletion);
-                Request request = (new okhttp3.Request.Builder()).url("https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions").post(RequestBody.create(MediaType.parse(ContentType.JSON.getValue()), requestBody)).build();
+                String requestBody = qwenCompletionRequest.toString();
+                Request request = (new Request.Builder()).url("https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation")
+                        .post(RequestBody.create(MediaType.parse(ContentType.JSON.getValue()), requestBody)).build();
                 factory.newEventSource(request, eventSourceListener);
             } catch (Exception var7) {
                 log.error("请求参数解析异常", var7);
@@ -51,39 +54,17 @@ public class BaiduAiStreamClient extends BaiduAiClient {
         }
     }
 
-    public void streamChatCompletion_pro(BaiduCompletion baiduCompletion, EventSourceListener eventSourceListener) {
-        if (Objects.isNull(eventSourceListener)) {
-            log.error("参数异常：EventSourceListener不能为空，可以参考：com.unfbx.chatgpt.sse.ConsoleEventSourceListener");
-            throw new BaseException(CommonError.PARAM_ERROR);
-        } else {
-            if (baiduCompletion.getStream() == null) {
-                baiduCompletion.setStream(true);
-            }
-
-            try {
-                EventSource.Factory factory = EventSources.createFactory(this.okHttpClient);
-                ObjectMapper mapper = new ObjectMapper();
-                String requestBody = mapper.writeValueAsString(baiduCompletion);
-                Request request = (new okhttp3.Request.Builder()).url("https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro").post(RequestBody.create(MediaType.parse(ContentType.JSON.getValue()), requestBody)).build();
-                factory.newEventSource(request, eventSourceListener);
-            } catch (Exception var7) {
-                log.error("请求参数解析异常", var7);
-            }
-
-        }
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public static BaiduAiStreamClient.Builder builder() {
-        return new BaiduAiStreamClient.Builder();
-    }
-
-    public BaiduAiStreamClient(BaiduAiStreamClient.Builder builder) {
+    public QwenStreamClient(Builder builder) {
         OkHttpClient okHttpClient = builder.okHttpClient;
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new OpenAILogger());
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         RequestParamInterceptor requestParamInterceptor = builder.requestParamInterceptor;
         if (okHttpClient == null) {
-            okHttpClient = (new okhttp3.OkHttpClient.Builder())
+            okHttpClient = (new OkHttpClient.Builder())
                     .addInterceptor(requestParamInterceptor)
                     .addInterceptor(httpLoggingInterceptor)
 //                    .addInterceptor(new CurlInterceptor(new Loggable() {
@@ -108,7 +89,7 @@ public class BaiduAiStreamClient extends BaiduAiClient {
         }
 
         this.okHttpClient = okHttpClient;
-        super.baiduWenXinAiApi = (new retrofit2.Retrofit.Builder()).baseUrl("https://aip.baidubce.com").client(okHttpClient).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).addConverterFactory(JacksonConverterFactory.create()).build().create(BaiduWenXinAiApi.class);
+        super.qwenApi = (new retrofit2.Retrofit.Builder()).baseUrl("https://dashscope.aliyuncs.com").client(okHttpClient).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).addConverterFactory(JacksonConverterFactory.create()).build().create(QwenApi.class);
     }
 
     public static final class Builder {
@@ -118,18 +99,20 @@ public class BaiduAiStreamClient extends BaiduAiClient {
         public Builder() {
         }
 
-        public BaiduAiStreamClient.Builder paramInterceptor(RequestParamInterceptor val) {
+        public Builder paramInterceptor(RequestParamInterceptor val) {
             this.requestParamInterceptor = val;
             return this;
         }
 
-        public BaiduAiStreamClient.Builder okHttpClient(OkHttpClient val) {
+        public Builder okHttpClient(OkHttpClient val) {
+            val.newBuilder().callTimeout(30, TimeUnit.SECONDS).connectTimeout(90L, TimeUnit.SECONDS)
+                    .writeTimeout(90L, TimeUnit.SECONDS).readTimeout(90L, TimeUnit.SECONDS).build();
             this.okHttpClient = val;
             return this;
         }
 
-        public BaiduAiStreamClient build() {
-            return new BaiduAiStreamClient(this);
+        public QwenStreamClient build() {
+            return new QwenStreamClient(this);
         }
     }
 }
