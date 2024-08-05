@@ -14,6 +14,11 @@ public class BaiduCompletion {
     private Double penalty_score;
     private Integer max_output_tokens = 2048;
     /**
+     * 模型人设，主要用于人设设定，例如，你是xxx公司制作的AI助手，说明：
+     * （1）长度限制请参考messages参数说明
+     */
+    private String system;
+    /**
      * 指定响应内容的格式，说明：
      * （1）可选值：
      * · json_object：以json格式返回，可能出现不满足效果情况
