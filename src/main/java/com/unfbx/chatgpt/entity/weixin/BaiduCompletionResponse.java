@@ -18,6 +18,14 @@ public class BaiduCompletionResponse implements Serializable {
     private BaiduCompletionResponse.Usage usage;
     private String error_code;
     private String error_msg;
+    /**
+     * 说明：返回flag表示触发安全
+     */
+    private Integer flag;
+    /**
+     * 当need_clear_history为true时，此字段会告知第几轮对话有敏感信息，如果是当前问题，ban_round=-1
+     */
+    private Integer ban_round;
 
     @Data
     public static class Usage {
