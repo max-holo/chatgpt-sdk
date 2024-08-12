@@ -78,7 +78,7 @@ public class QwenCompletionRequest {
          * 控制在流式输出模式下是否开启增量输出(仅在流式输出需要传)
          * 和默认值不同时才序列化
          */
-        @JsonInclude(value = JsonInclude.Include.NON_DEFAULT)
+//        @JsonInclude(value = JsonInclude.Include.NON_DEFAULT)
         @JsonProperty("incremental_output")
         private boolean incrementalOutput = false;
 
