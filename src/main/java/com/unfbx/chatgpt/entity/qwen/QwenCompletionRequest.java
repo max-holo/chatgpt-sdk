@@ -72,7 +72,7 @@ public class QwenCompletionRequest {
          * 联网搜索开关
          */
         @JsonProperty("enable_search")
-        private boolean enableSearch = true;
+        private boolean enableSearch = false;
 
         /**
          * 控制在流式输出模式下是否开启增量输出(仅在流式输出需要传)
