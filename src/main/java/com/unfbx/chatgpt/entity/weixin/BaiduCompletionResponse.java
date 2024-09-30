@@ -1,5 +1,6 @@
 package com.unfbx.chatgpt.entity.weixin;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -28,10 +29,18 @@ public class BaiduCompletionResponse implements Serializable {
     private Integer ban_round;
 
     @Data
+    // @JsonIgnoreProperties(ignoreUnknown = true)忽略未知属性
     public static class Usage {
         private Integer prompt_tokens;
+        private TokenDetail prompt_tokens_details;
         private Integer completion_tokens;
         private Integer total_tokens;
+        private Integer search_count;
+
+    }
+    @Data
+    public static class TokenDetail {
+        private Integer search_tokens;
 
     }
 }
