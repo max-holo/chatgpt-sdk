@@ -42,6 +42,7 @@ public class QwenCompletionResponse implements Serializable {
 
     @Data
     public static class Usage {
+        @JsonProperty("prompt_tokens_details")
         private PromptTokensDetails promptTokensDetails;
         private int input_tokens;
         private int output_tokens;
