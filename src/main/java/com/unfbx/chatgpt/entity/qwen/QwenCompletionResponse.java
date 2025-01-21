@@ -24,12 +24,14 @@ public class QwenCompletionResponse implements Serializable {
     private String message;
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class OutPutResult {
         private List<Choice> choices;
     }
 
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Choice {
         @JsonProperty("finish_reason")
         private String finishReason;
@@ -37,12 +39,14 @@ public class QwenCompletionResponse implements Serializable {
     }
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Messages {
         private String role;
         private String content;
     }
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Usage {
         @JsonProperty("prompt_tokens_details")
         private PromptTokensDetails promptTokensDetails;
@@ -52,6 +56,7 @@ public class QwenCompletionResponse implements Serializable {
     }
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PromptTokensDetails {
         private int cached_tokens;
     }

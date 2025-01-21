@@ -21,6 +21,7 @@ public class ChatglmCompletionResponse implements Serializable {
     private Usage usage;
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Choice {
         private Long index;
         @JsonProperty("finish_reason")
@@ -29,12 +30,14 @@ public class ChatglmCompletionResponse implements Serializable {
     }
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Messages {
         private String role;
         private String content;
     }
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Usage {
         private int completion_tokens;
         private int prompt_tokens;
