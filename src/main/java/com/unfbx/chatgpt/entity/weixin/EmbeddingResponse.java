@@ -1,5 +1,6 @@
 package com.unfbx.chatgpt.entity.weixin;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unfbx.chatgpt.entity.common.Usage;
 import com.unfbx.chatgpt.entity.embeddings.Item;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EmbeddingResponse {
     private String id;
     private String object;
