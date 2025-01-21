@@ -1,0 +1,49 @@
+package com.unfbx.chatgpt.entity.deepseek;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.List;
+
+
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class DeepSeekCompletionResponse implements Serializable {
+
+    private String id;
+    private String object;
+    private Long created;
+    private String model;
+    @JsonProperty("system_fingerprint")
+    private String systemFingerprint;
+    private List<Choice> choices;
+    private Usage usage;
+
+    @Data
+    public static class Choice {
+        private Long index;
+        @JsonProperty("finish_reason")
+        private String finishReason;
+        private Boolean logprobs;
+        private Messages message;
+        private Messages delta;
+    }
+
+    @Data
+    public static class Messages {
+        private String role;
+        private String content;
+    }
+
+    @Data
+    public static class Usage {
+        private int completion_tokens;
+        private int prompt_tokens;
+        private int total_tokens;
+        private int prompt_cache_hit_tokens;
+        private int prompt_cache_miss_tokens;
+    }
+
+}
