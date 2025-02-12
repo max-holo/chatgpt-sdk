@@ -1,4 +1,4 @@
-package com.unfbx.chatgpt.entity.deepseek;
+package com.unfbx.chatgpt.entity.weixinV2;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeepSeekCompletionResponse implements Serializable {
+public class BaiduV2CompletionResponse implements Serializable {
 
     private String id;
     private String object;
@@ -20,13 +20,15 @@ public class DeepSeekCompletionResponse implements Serializable {
     private String systemFingerprint;
     private List<Choice> choices;
     private Usage usage;
+    private SearchResults searchResults;
 
     @Data
     public static class Choice {
         private Long index;
         @JsonProperty("finish_reason")
         private String finishReason;
-        private Boolean logprobs;
+        private Boolean flag;
+        private Boolean ban_round;
         private Messages message;
         private Messages delta;
     }
@@ -44,8 +46,20 @@ public class DeepSeekCompletionResponse implements Serializable {
         private int completion_tokens;
         private int prompt_tokens;
         private int total_tokens;
-        private int prompt_cache_hit_tokens;
-        private int prompt_cache_miss_tokens;
+        private PromptTokensDetails prompt_tokens_details;
+    }
+
+    @Data
+    public static class SearchResults {
+        private int index;
+        private String url;
+        private String title;
+    }
+
+    @Data
+    public static class PromptTokensDetails {
+        private int search_tokens;
+        private int cached_tokens;
     }
 
 }
