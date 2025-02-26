@@ -22,15 +22,18 @@ public class BaiduV2ParamInterceptor extends RequestParamInterceptor {
 
     @NotNull
     public Response intercept(Chain chain) throws IOException {
-        String accessKey = super.accessKeyHandler.getAccessKey();
+        String[] accessKey = super.accessKeyHandler.getAccessKey().split("\\.");
+        if (accessKey.length != 2) {
+            throw new RuntimeException("invalid apiSecretKey");
+        }
         Request original = chain.request();
         String url = original.url().toString();
         RequestBody body = original.body();
         Request request = original.newBuilder()
                 .url(url)
                 .header(Header.CONTENT_TYPE.getValue(), "application/json; charset=utf-8")
-                .header("appid", "app-HfCa6dic")
-                .header(Header.AUTHORIZATION.getValue(), "Bearer " + accessKey)
+                .header("appid", accessKey[0])
+                .header(Header.AUTHORIZATION.getValue(), "Bearer " + accessKey[1])
                 .method(original.method(), body).build();
         return chain.proceed(request);
     }
