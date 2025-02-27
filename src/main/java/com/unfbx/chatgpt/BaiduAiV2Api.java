@@ -8,6 +8,6 @@ import retrofit2.http.POST;
 
 public interface BaiduAiV2Api {
 
-    @POST("/chat/completions")
+    @POST("/v2/chat/completions")
     Single<BaiduV2CompletionResponse> completions(@Body BaiduV2CompletionRequest var1);
 }
