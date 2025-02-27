@@ -47,6 +47,7 @@ public class BaiduV2CompletionResponse implements Serializable {
         private int prompt_tokens;
         private int total_tokens;
         private PromptTokensDetails prompt_tokens_details;
+        private CompletionTokensDetails completion_tokens_details;
     }
 
     @Data
@@ -60,6 +61,11 @@ public class BaiduV2CompletionResponse implements Serializable {
     public static class PromptTokensDetails {
         private int search_tokens;
         private int cached_tokens;
+    }
+
+    @Data
+    public static class CompletionTokensDetails {
+        private int reasoning_tokens;
     }
 
 }
