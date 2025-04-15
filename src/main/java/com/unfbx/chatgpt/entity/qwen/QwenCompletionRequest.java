@@ -63,7 +63,7 @@ public class QwenCompletionRequest {
          * 模型输出最大tokens
          */
         @JsonProperty("max_tokens")
-        private Integer maxTokens = 2000;
+        private Integer maxTokens = 8192;
 
         @JsonProperty("result_format")
         private String resultFormat = "message";

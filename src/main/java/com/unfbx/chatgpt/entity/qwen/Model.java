@@ -8,8 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Model {
 
-    QWEN_MAX("qwen-max", "8k"),
-    QWEN_TURBO("qwen-turbo", "8k"),
+    QWEN_MAX("qwen-max", "32k"),
+    QWEN_TURBO("qwen-turbo", "128k"),
     QWEN_PLUS("qwen-plus", "32k"),
     ;
     private final String code;
