@@ -39,7 +39,18 @@ public class BaiduV2CompletionResponse implements Serializable {
         private String content;
         @JsonProperty("reasoning_content")
         private String reasoningContent;
+
+        @Override
+        public String toString() {
+            return String.format(
+                    "{\"role\":%s,\"content\":%s,\"reasoning_content\":%s}",
+                    role != null ? String.format("\"%s\"", role) : "null",
+                    content != null ? String.format("\"%s\"", content) : "null",
+                    reasoningContent != null ? String.format("\"%s\"", reasoningContent) : "null"
+            );
+        }
     }
+
 
     @Data
     public static class Usage {
@@ -67,5 +78,4 @@ public class BaiduV2CompletionResponse implements Serializable {
     public static class CompletionTokensDetails {
         private int reasoning_tokens;
     }
-
 }
