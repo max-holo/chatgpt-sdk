@@ -2,6 +2,8 @@ package com.unfbx.chatgpt.entity.weixinV2;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -35,19 +37,19 @@ public class BaiduV2CompletionResponse implements Serializable {
 
     @Data
     public static class Messages {
+        private static final ObjectMapper objectMapper = new ObjectMapper();
         private String role;
         private String content;
-        @JsonProperty("reasoning_content")
         private String reasoningContent;
 
         @Override
         public String toString() {
-            return String.format(
-                    "{\"role\":%s,\"content\":%s,\"reasoning_content\":%s}",
-                    role != null ? String.format("\"%s\"", role) : "null",
-                    content != null ? String.format("\"%s\"", content) : "null",
-                    reasoningContent != null ? String.format("\"%s\"", reasoningContent) : "null"
-            );
+            try {
+                return objectMapper.writeValueAsString(this);
+            } catch (JsonProcessingException e) {
+                // 序列化失败时返回简要错误信息
+                return String.format("{\"error\":\"Failed to serialize Messages: %s\"}", e.getMessage());
+            }
         }
     }
 
