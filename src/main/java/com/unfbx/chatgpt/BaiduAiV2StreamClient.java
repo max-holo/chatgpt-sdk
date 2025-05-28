@@ -71,8 +71,8 @@ public class BaiduAiV2StreamClient extends BaiduAiV2Client {
 //                            System.out.println(s);
 //                        }
 //                    }))
-                    .connectTimeout(30L, TimeUnit.SECONDS).writeTimeout(240L, TimeUnit.SECONDS).readTimeout(240L, TimeUnit.SECONDS)
-                    .callTimeout(240L, TimeUnit.SECONDS).build();
+                    .connectTimeout(30L, TimeUnit.SECONDS).writeTimeout(300L, TimeUnit.SECONDS).readTimeout(300L, TimeUnit.SECONDS)
+                    .callTimeout(300L, TimeUnit.SECONDS).build();
         } else if (CollUtil.isEmpty(okHttpClient.interceptors())) {
             okHttpClient = okHttpClient.newBuilder()
                     .addInterceptor(requestParamInterceptor)

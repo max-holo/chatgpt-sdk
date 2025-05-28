@@ -40,6 +40,7 @@ public class BaiduV2CompletionResponse implements Serializable {
         private static final ObjectMapper objectMapper = new ObjectMapper();
         private String role;
         private String content;
+        @JsonProperty("reasoning_content")
         private String reasoningContent;
 
         @Override
