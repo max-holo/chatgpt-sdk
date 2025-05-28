@@ -56,11 +56,13 @@ public class BaiduV2CompletionRequest {
     /**
      * 联网搜索
      */
+    @JsonProperty("web_search")
     private WebSearch webSearch;
 
     /**
      * 流式输出时，是否输出usage
      */
+    @JsonProperty("stream_options")
     private StreamOptions streamOptions;
 
 
