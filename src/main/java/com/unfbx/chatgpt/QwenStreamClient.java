@@ -73,8 +73,8 @@ public class QwenStreamClient extends QwenClient {
 //                            System.out.println(s);
 //                        }
 //                    }))
-                    .connectTimeout(30L, TimeUnit.SECONDS).writeTimeout(120L, TimeUnit.SECONDS).readTimeout(120L, TimeUnit.SECONDS)
-                    .callTimeout(120L, TimeUnit.SECONDS).build();
+                    .connectTimeout(30L, TimeUnit.SECONDS).writeTimeout(500L, TimeUnit.SECONDS).readTimeout(500L, TimeUnit.SECONDS)
+                    .callTimeout(500L, TimeUnit.SECONDS).build();
         } else if (CollUtil.isEmpty(okHttpClient.interceptors())) {
             okHttpClient = okHttpClient.newBuilder()
                     .addInterceptor(requestParamInterceptor)
