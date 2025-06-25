@@ -21,6 +21,8 @@ public class AppBuilderClientRunRequest {
     @JsonProperty("tool_choice")
     private ToolChoice ToolChoice;
     private Action action;
+    @JsonProperty("file_ids")
+    private String fileIds;
 
     public AppBuilderClientRunRequest() {
     }
