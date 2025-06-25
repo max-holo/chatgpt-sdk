@@ -3,6 +3,7 @@ package com.unfbx.chatgpt.entity.baiduAgent;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -22,7 +23,7 @@ public class AppBuilderClientRunRequest {
     private ToolChoice ToolChoice;
     private Action action;
     @JsonProperty("file_ids")
-    private String fileIds;
+    private List<String> fileIds;
 
     public AppBuilderClientRunRequest() {
     }
