@@ -42,6 +42,7 @@ public class BaiduCompletionResponse implements Serializable {
     @Data
     public static class TokenDetail {
         private Integer search_tokens;
+        private Integer cached_tokens;
 
     }
 }
