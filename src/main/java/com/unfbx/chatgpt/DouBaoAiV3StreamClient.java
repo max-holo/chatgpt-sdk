@@ -87,7 +87,7 @@ public class DouBaoAiV3StreamClient extends DouBaoAiV3Client {
         }
 
         this.okHttpClient = okHttpClient;
-        super.douBaoAiV3Api = (new retrofit2.Retrofit.Builder()).baseUrl("https://ark.cn-beijing.volces.com/api").client(okHttpClient).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).addConverterFactory(JacksonConverterFactory.create()).build().create(DouBaoAiV3Api.class);
+        super.douBaoAiV3Api = (new retrofit2.Retrofit.Builder()).baseUrl("https://ark.cn-beijing.volces.com/api/").client(okHttpClient).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).addConverterFactory(JacksonConverterFactory.create()).build().create(DouBaoAiV3Api.class);
     }
 
     public static final class Builder {
