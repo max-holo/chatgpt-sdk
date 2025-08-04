@@ -25,6 +25,7 @@ public class BaiduV2CompletionResponse implements Serializable {
     private SearchResults searchResults;
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Choice {
         private Long index;
         @JsonProperty("finish_reason")
@@ -56,6 +57,7 @@ public class BaiduV2CompletionResponse implements Serializable {
 
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Usage {
         private int completion_tokens;
         private int prompt_tokens;
@@ -65,6 +67,7 @@ public class BaiduV2CompletionResponse implements Serializable {
     }
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class SearchResults {
         private int index;
         private String url;
@@ -72,12 +75,14 @@ public class BaiduV2CompletionResponse implements Serializable {
     }
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PromptTokensDetails {
         private int search_tokens;
         private int cached_tokens;
     }
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class CompletionTokensDetails {
         private int reasoning_tokens;
     }
