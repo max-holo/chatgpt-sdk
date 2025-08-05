@@ -12,4 +12,5 @@ import java.util.List;
 public class EmbeddingRequest {
     private List<String> input;
     private String user_id;
+    private String model;
 }
