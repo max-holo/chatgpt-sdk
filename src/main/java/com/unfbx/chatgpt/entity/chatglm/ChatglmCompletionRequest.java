@@ -227,7 +227,9 @@ public class ChatglmCompletionRequest {
     public String toString() {
         try {
             // 24年1月发布新模型后调整
-            if (Model.GLM_3_5_TURBO.getCode().equals(this.model) || Model.GLM_4.getCode().equals(this.model) || Model.GLM_4V.getCode().equals(this.model)) {
+            if (Model.GLM_3_5_TURBO.getCode().equals(this.model)
+                    || Model.GLM_4_7.getCode().equals(this.model)
+                    || Model.GLM_5.getCode().equals(this.model)) {
                 Map<String, Object> paramsMap = new HashMap<>();
                 paramsMap.put("model", this.model);
                 if (null == this.messages) {
