@@ -26,7 +26,7 @@ public class DeepSeekCompletionRequest {
     /**
      * 模型
      */
-    private String model = Model.DEEPSEEK_V3.getCode();
+    private String model = Model.DEEPSEEK_V4_PRO.getCode();
     /**
      * 请求参数
      */
@@ -55,7 +55,7 @@ public class DeepSeekCompletionRequest {
      * 模型输出最大tokens
      */
     @JsonProperty("max_tokens")
-    private Integer maxTokens = 8192;
+    private Integer maxTokens = 20000;
 
 
     @Data
@@ -97,7 +97,7 @@ public class DeepSeekCompletionRequest {
     @Override
     public String toString() {
         try {
-            if (Model.DEEPSEEK_V3.getCode().equals(this.model)) {
+            if (Model.DEEPSEEK_V4_PRO.getCode().equals(this.model)) {
                 Map<String, Object> paramsMap = new HashMap<>();
                 paramsMap.put("model", this.model);
                 if (null == this.messages) {
@@ -105,7 +105,6 @@ public class DeepSeekCompletionRequest {
                 }
                 paramsMap.put("messages", this.messages);
                 paramsMap.put("stream", this.stream);
-                paramsMap.put("frequency_penalty", this.frequency_penalty);
                 paramsMap.put("temperature", this.temperature);
                 paramsMap.put("top_p", this.topP);
                 paramsMap.put("max_tokens", this.maxTokens);

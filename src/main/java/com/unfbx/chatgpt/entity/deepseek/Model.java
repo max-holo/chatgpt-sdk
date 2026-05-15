@@ -8,7 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Model {
 
-    DEEPSEEK_V3("deepseek-chat", "自动为v3模型")
+    DEEPSEEK_V4_PRO("deepseek-v4-pro", "v4-pro")
     ;
     private final String code;
     private final String info;

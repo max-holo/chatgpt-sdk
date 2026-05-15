@@ -24,7 +24,7 @@ public class ChatglmCompletionRequest {
     /**
      * 模型
      */
-    private String model = Model.GLM_3_5_TURBO.getCode();
+    private String model = Model.GLM_5.getCode();
     /**
      * 请求参数 {"role": "user", "content": "你好"}
      * 24年1月发布的 GLM_3_5_TURBO、GLM_4 模型时新增
