@@ -1,13 +1,12 @@
 package com.unfbx.chatgpt.entity.deepseek;
 
+import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.unfbx.chatgpt.entity.chatglm.ChatglmCompletionRequest;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -22,6 +21,12 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeepSeekCompletionRequest {
+
+    /**
+     * 请求ID
+     */
+    @JsonProperty("request_id")
+    private String requestId = String.format("max-%d", System.currentTimeMillis());
 
     /**
      * 模型
