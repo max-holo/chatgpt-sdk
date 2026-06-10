@@ -123,7 +123,7 @@ public class QwenCompletionRequest {
     @Override
     public String toString() {
         try {
-            if (Model.QWEN_MAX.getCode().equals(this.model) || Model.QWEN_TURBO.getCode().equals(this.model)
+            if (Model.QWEN_MAX.getCode().equals(this.model) || Model.QWEN_PLUS.getCode().equals(this.model)
                     || Model.QWEN_PLUS.getCode().equals(this.model)) {
                 Map<String, Object> paramsMap = new HashMap<>();
                 paramsMap.put("model", this.model);
