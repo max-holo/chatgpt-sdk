@@ -22,6 +22,7 @@ public class DeepSeekCompletionResponse implements Serializable {
     private Usage usage;
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Choice {
         private Long index;
         @JsonProperty("finish_reason")
@@ -32,6 +33,7 @@ public class DeepSeekCompletionResponse implements Serializable {
     }
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Messages {
         private String role;
         private String content;
@@ -40,12 +42,36 @@ public class DeepSeekCompletionResponse implements Serializable {
     }
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Usage {
-        private int completion_tokens;
-        private int prompt_tokens;
-        private int total_tokens;
-        private int prompt_cache_hit_tokens;
-        private int prompt_cache_miss_tokens;
+        @JsonProperty("prompt_tokens")
+        private int promptTokens;
+        @JsonProperty("completion_tokens")
+        private int completionTokens;
+        @JsonProperty("total_tokens")
+        private int totalTokens;
+        @JsonProperty("prompt_cache_hit_tokens")
+        private int promptCacheHitTokens;
+        @JsonProperty("prompt_cache_miss_tokens")
+        private int promptCacheMissTokens;
+        @JsonProperty("prompt_tokens_details")
+        private PromptTokensDetails promptTokensDetails;
+        @JsonProperty("completion_tokens_details")
+        private CompletionTokensDetails completionTokensDetails;
+    }
+
+    @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class PromptTokensDetails {
+        @JsonProperty("cached_tokens")
+        private int cachedTokens;
+    }
+
+    @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class CompletionTokensDetails {
+        @JsonProperty("reasoning_tokens")
+        private int reasoningTokens;
     }
 
 }
