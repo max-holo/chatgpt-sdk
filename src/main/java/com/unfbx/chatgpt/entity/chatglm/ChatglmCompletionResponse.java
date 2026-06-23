@@ -2,6 +2,8 @@ package com.unfbx.chatgpt.entity.chatglm;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -34,6 +36,18 @@ public class ChatglmCompletionResponse implements Serializable {
     public static class Messages {
         private String role;
         private String content;
+        @JsonProperty("reasoning_content")
+        private String reasoningContent;
+        private static final ObjectMapper objectMapper = new ObjectMapper();
+        @Override
+        public String toString() {
+            try {
+                return objectMapper.writeValueAsString(this);
+            } catch (JsonProcessingException e) {
+                // 序列化失败时返回简要错误信息
+                return String.format("{\"error\":\"Failed to serialize Messages: %s\"}", e.getMessage());
+            }
+        }
     }
 
     @Data
