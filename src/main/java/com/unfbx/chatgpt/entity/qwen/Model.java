@@ -10,6 +10,7 @@ public enum Model {
 
     QWEN_MAX("qwen3.7-max", ""),
     QWEN_PLUS("qwen3.7-plus", ""),
+    QWEN_3_8_MAX("qwen3.8-max", ""),
     ;
     private final String code;
     private final String info;
